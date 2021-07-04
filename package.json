@@ -1,0 +1,29 @@
+{
+  "name": "testing-node-apps",
+  "version": "1.0.0",
+  "description": "Testing NodeJs applications",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taibuharoub/testing-node-apps.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/taibuharoub/testing-node-apps/issues"
+  },
+  "homepage": "https://github.com/taibuharoub/testing-node-apps#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
+    "express-validator": "^6.12.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.13.2",
+    "multer": "^1.4.2"
+  }
+}
