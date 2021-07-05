@@ -34,36 +34,43 @@ describe("Auth Controller - Login", function () {
   it("should send a response with a valid user status for an existing user", function (done) {
     //connect to test dataabse
     mongoose
-      .connect("mongodb://localhost:27017/nodetestDB")
+      .connect("mongodb://localhost:27017/nodetestDB", { useUnifiedTopology: true })
       .then((result) => {
         //Define testing logic
         const user = new User({
-            email: "ty@ty.com",
-            password: "tester",
-            name: "taibu",
-            posts: [],
-            _id: "5c0f66b979af55031b34728a"
+          email: "ty@ty.com",
+          password: "tester",
+          name: "taibu",
+          posts: [],
+          _id: "5c0f66b979af55031b34728a",
         });
-        return user.save()
+        return user.save();
       })
       .then(() => {
-          const req = { userId: "5c0f66b979af55031b34728a" }
-          const res = {
-              statusCode: 500,
-              userStatus: null,
-              status: function(code) {
-                  this.statusCode = code;
-                  return this;
-              },
-              json: function(data) {
-                  this.userStatus = data.status;
-              }
-          }
-          AuthController.getUserStatus(req, res, () => {}).then(() => {
-              expect(res.statusCode).to.be.equal(200);
-              expect(res.userStatus).to.be.equal("I am new!");
+        const req = { userId: "5c0f66b979af55031b34728a" };
+        const res = {
+          statusCode: 500,
+          userStatus: null,
+          status: function (code) {
+            this.statusCode = code;
+            return this;
+          },
+          json: function (data) {
+            this.userStatus = data.status;
+          },
+        };
+        AuthController.getUserStatus(req, res, () => {}).then(() => {
+          expect(res.statusCode).to.be.equal(200);
+          expect(res.userStatus).to.be.equal("I am new!");
+          //Clean up
+          User.deleteMany({})
+            .then(() => {
+              return mongoose.disconnect();
+            })
+            .then(() => {
               done();
-          })
+            });
+        });
       })
       .catch((err) => console.log(err));
   });
