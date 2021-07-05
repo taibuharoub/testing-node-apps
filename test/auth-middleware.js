@@ -1,5 +1,6 @@
 const expect = require("chai").expect;
 const authMiddleware = require("../middleware/is-auth");
+const jwt = require("jsonwebtoken");
 
 //will test the behaviour when it returns null.
 
@@ -60,6 +61,12 @@ describe("Auth middleware", function () {
         return "Bearer xyziiwoowddawwwsas";
       },
     };
+
+    //will replace the verify function with a stub or mock
+    jwt.verify = function() {
+        return { userId: "abc"}
+    };
+
     // will manually call the authMiddleware function
     authMiddleware(req, {}, () => {});
     expect(req).to.have.property("userId");
