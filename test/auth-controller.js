@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const User = require("../models/user");
 const AuthController = require("../controllers/auth");
 
-describe("Auth Controller - Login", function () {
+describe("Auth Controller", function () {
   it("should throw an error with code 500 if accessing the database fails", function (done) {
     sinon.stub(User, "findOne");
     User.findOne.throws();
